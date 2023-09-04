@@ -1,6 +1,6 @@
 const request = require("request");
+
 const forecast = (latitude, longitude, callback) => {
-  // console.log(latitude, longitude, callback);
   const url =
     "http://api.weatherstack.com/current?access_key=a855768770952a041d472d7306a7668b&query=" +
     latitude +
@@ -11,8 +11,10 @@ const forecast = (latitude, longitude, callback) => {
       callback("unable to connect to weather service! ", undefined);
     } else if (body.error) {
       // console.log(callback);
-      // callback("unable to find location", undefined);
+      // callback("unable to find location", undefined); ///
     } else {
+      // console.log(body.current.is_day);
+
       callback(
         undefined,
         body.current.weather_descriptions[0] +
@@ -20,7 +22,8 @@ const forecast = (latitude, longitude, callback) => {
           body.current.temperature +
           " degres out. it feels like  " +
           body.current.feelslike +
-          " degres out."
+          " degres out." +
+          body.location.country
       );
     }
   });
